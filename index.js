@@ -25,6 +25,9 @@ client.connect(err => {
         res.send(result.insertedCount > 0)
       })
   })
+
+
+
   app.get('/jobs', (req, res) => {
     collection.find({})
       .toArray((err, document) => {
@@ -32,6 +35,19 @@ client.connect(err => {
       })
   })
 
+  app.get('/jobs/:id',(req, res) =>{
+    collection.find({id: req.params._id})
+      .toArray((err, document)=>{
+        res.send(document[0])
+      })
+  })
+
+  app.get("/posts", (req, res) => {
+    collection.find({ email: req.query.Email })
+      .toArray((err, document) => {
+        res.send(document)
+      })
+  })
   console.log("sarver started")
 });
 
